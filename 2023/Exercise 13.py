@@ -9,7 +9,6 @@
 # *   - You are free to use any words you prefer and choose the number of attempts you find suitable.
 
 import random
-bools = [True, False]
 
 class GuessGame():
     def __init__(self):
@@ -26,11 +25,11 @@ class GuessGame():
             toHide = random.randint(0,(len(self.misteryWord) -1))
             if not toHide in self.hidesIndex:
                 self.hidesIndex.append(toHide)
+                self.hidesLetters.append(self.misteryWord[toHide].upper())
 
         for i in range(0,len(self.misteryWord)):
             if i in self.hidesIndex:
                 self.mistery += "_"
-                self.hidesLetters.append(self.misteryWord[i].upper())
             else:
                 self.mistery += self.misteryWord[i]
 
@@ -54,7 +53,24 @@ class GuessGame():
 
             else:
                 if text.upper() in self.hidesLetters:
-                    pass
+                    indexT = self.hidesLetters.index(text.upper())
+                    index = self.hidesIndex[indexT]
+                    newMistery = ""
+                    for i in range(0,len(self.mistery)):
+                        if i == index:
+                            newMistery += text.lower()
+                        else:
+                            newMistery += self.mistery[i]
+
+                    self.mistery = newMistery
+                    self.hidesLetters.pop(indexT)
+                    self.hidesIndex.pop(indexT)
+
+                    if self.mistery.lower() == self.misteryWord.lower():
+                        self.win = True
+                        return "Winner!"
+
+                    return f"That's correct, keep it going"
 
 
                 else:
@@ -73,3 +89,17 @@ class GuessGame():
         return self.mistery
 
 newGame = GuessGame()
+
+print("The game started!")
+print(newGame.misteryPreview())
+
+while True:
+    myGuess = input("Guess: ")
+    print(newGame.guess(myGuess))
+
+    if newGame.attempts == 0 or newGame.win == True:
+        break
+
+    print(newGame.misteryPreview())
+
+
