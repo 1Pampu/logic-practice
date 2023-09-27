@@ -21,13 +21,6 @@ def translateAurebesh(text, isAurebesh):
             else:
                 tanslation += basic_alphabet[i]
 
-    if isAurebesh:
-
-        lista = []
-        for letter, seccuence in basic_alphabet.items():
-            if seccuence in text:
-                lista.append(letter)
-
     return tanslation
 
 
