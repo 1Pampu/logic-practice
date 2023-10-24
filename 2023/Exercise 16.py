@@ -37,4 +37,4 @@ def stairs(number):
     elif number < 0:
         pass
 
-stairs(4)
+stairs(-4)
