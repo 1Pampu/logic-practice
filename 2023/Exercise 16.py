@@ -2,6 +2,7 @@
 #  * - If the number is positive, it will be ascending from left to right.
 #  * - If the number is negative, it will be descending from left to right.
 #  * - If the number is zero, it will draw two underscores (__).
+
 #  * Example: 4
 #  *         _
 #  *       _|
@@ -9,32 +10,33 @@
 #  *   _|
 #  * _|
 
+#  * Example: -4
+#  * _
+#  *  |_
+#  *    |_
+#  *      |_
+#  *        |_
+
+
 def stairs(number):
 
     if number == 0:
         print("__")
 
     elif number > 0:
-
-        stair = []
-        floor = []
-        for i in range(0,number):
-            stair.append("  ")
-            floor.append("  ")
-        stair.append("_|")
-        floor.append("  _")
-
-        for i in floor:
-            print(i,end="")
-        print()
-
-        for i in range(0,number):
-            for x in stair:
-                print(x,end="")
-            print()
-            stair.pop(0)
+        length = number * 2
+        print(" " * length + "_")
+        for i in range(number):
+            length -= 2
+            print(" " * length + "_|")
 
     elif number < 0:
-        pass
+        print("_")
+        length = 1
+        number = abs(number)
+        for i in range(number):
+            print(" " * length + "|_")
+            length += 2
 
+stairs(4)
 stairs(-4)

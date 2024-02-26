@@ -14,12 +14,35 @@ def translateAurebesh(text, isAurebesh):
 
     tanslation = ""
     if not isAurebesh:
-
-        for i in text:
-            if not i in basic_alphabet.keys():
-                tanslation += i
+        # Translate to Aurebesh
+        for letter in text:
+            for key, value in basic_alphabet.items():
+                if letter == key:
+                    tanslation += value
+                    break
             else:
-                tanslation += basic_alphabet[i]
+                tanslation += letter
+
+    else:
+        # Translate to spanish
+        text_list = text.split(" ")
+        for word in text_list:
+            letter_list = []
+            letters = 0
+
+            for key, value in basic_alphabet.items():
+                if value in word:
+                    letter_list.append(key)
+                    letters += 1
+
+            while letters > 0:
+                for letter in letter_list:
+                    if word.startswith(basic_alphabet[letter]):
+                        tanslation += letter
+                        word = word.replace(basic_alphabet[letter], "")
+                        letters -= 1
+
+            tanslation += " "
 
     return tanslation
 
